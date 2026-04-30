@@ -1,26 +1,54 @@
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,sans-serif;color:#eaf3ff;background:#0b1017}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,sans-serif;background:#0b1017;color:#eaf3ff}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:linear-gradient(90deg,#182534,#243a52);border-bottom:2px solid #355372}
 .hud{display:flex;gap:.5rem;align-items:center}button{padding:.45rem .7rem;border-radius:8px;border:1px solid #6888ad;background:#1f344a;color:#eff7ff}
 .layout{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 62px)}
 .left-panel{padding:1rem;background:linear-gradient(#101a26,#0f141d);border-right:2px solid #2f455f}
-.left-panel h2{margin:.2rem 0}.left-panel p{font-size:.9rem;color:#bfd0e6}
 .parts-bin{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;max-height:75vh;overflow:auto;padding-right:.3rem}
-.board{position:relative;overflow:hidden}
-#grain{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.board{position:relative;overflow:hidden}#grain{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .case{position:absolute;left:15%;top:6%;width:72%;height:88%;background:linear-gradient(145deg,#313b45,#161d25);border:5px solid #56626e;border-radius:20px;z-index:2;box-shadow:0 20px 45px rgba(0,0,0,.45)}
 .case-inner{position:absolute;inset:15px;border:2px dashed #647586;border-radius:14px}
-.motherboard{position:absolute;left:4%;top:7%;width:58%;height:84%;border-radius:10px;border:3px solid #88ae9a;background:repeating-linear-gradient(90deg,rgba(118,202,169,.2)0 2px,transparent 2px 15px),linear-gradient(#20694f,#184535)}
+.motherboard{position:absolute;left:4%;top:7%;width:58%;height:84%;border-radius:10px;border:3px solid #88ae9a;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 35%),repeating-linear-gradient(90deg,rgba(118,202,169,.2)0 2px,transparent 2px 15px),linear-gradient(#20694f,#184535)}
 .slot{position:absolute;border:2px dashed #c4d4e7;background:rgba(11,19,28,.55);font-size:.7rem;display:grid;place-items:center;color:#deecf8;padding:3px;text-align:center}
 .cpu-socket{left:9%;top:10%;width:26%;height:22%}.ram-slot{left:43%;top:12%;width:48%;height:12%}.gpu-slot{left:11%;top:41%;width:76%;height:16%}.sound-slot{left:12%;top:64%;width:36%;height:12%}.usb-slot{left:54%;top:64%;width:33%;height:12%}
 .bay{right:4%;width:31%;height:20%}#hddSlot{top:10%}#fanSlot{top:37%;border-radius:50%}#psuSlot{bottom:8%}
 .io-zone{position:absolute;left:4%;bottom:3%;width:58%;height:8%;border:1px solid #8ab0ca;background:rgba(8,13,19,.55);font-size:.72rem;padding:.25rem .45rem;color:#cbe2f7}
-.part{position:relative;min-height:68px;background:linear-gradient(135deg,#5c6875,#2d3641);border:1px solid #95a4b5;border-radius:10px;cursor:grab;box-shadow:0 10px 16px rgba(0,0,0,.3);overflow:hidden}
+.part{position:relative;min-height:74px;background:linear-gradient(135deg,#5c6875,#2d3641);border:1px solid #95a4b5;border-radius:10px;cursor:grab;box-shadow:0 10px 16px rgba(0,0,0,.3);overflow:hidden}
 .part .label{position:absolute;left:6px;bottom:4px;font-size:.63rem;font-weight:700;text-shadow:0 1px 2px #000}
 .part::before,.part::after{content:"";position:absolute}.part.installed{outline:3px solid #2ad890}
-.part.cpu::before{inset:8px;background:linear-gradient(#decf8a,#8f7d47);border:2px solid #fff1b8}.part.ram{min-height:42px}.part.ram::before{left:6%;right:6%;top:10px;height:16px;background:repeating-linear-gradient(90deg,#14202a 0 10px,#44555f 10px 18px)}
-.part.gpu::before{left:8%;right:26%;top:12px;bottom:16px;background:#33414d;border:1px solid #99afc3}.part.gpu::after{right:8%;top:14px;width:18%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#a8bfce,#293847,#a8bfce)}
-.part.hdd::before{inset:8px;background:linear-gradient(#c4cbd2,#76808a)}.part.fan{border-radius:50%}.part.fan::before{inset:8px;border-radius:50%;background:conic-gradient(#a6bac9,#31404d,#a6bac9,#31404d,#a6bac9)}
-.part.psu::before{inset:10px;background:#343d46}.part.monitor::before{left:8%;right:8%;top:8%;bottom:24%;background:linear-gradient(#122233,#245170);border:2px solid #9bb3c6}
-.part.keyboard::before{left:8%;right:8%;top:14px;height:24px;background:repeating-linear-gradient(90deg,#e0e6ed 0 5px,#8f99a4 5px 8px)}.part.mouse::before{left:38%;top:10px;width:26%;height:34px;border-radius:45%;background:linear-gradient(#b7c4d0,#6f7c89)}
-.part.sound::before{left:8%;right:8%;top:11px;height:24px;background:#2d8259}.part.usb::before{left:10%;right:10%;top:12px;height:18px;background:repeating-linear-gradient(90deg,#d8b969 0 10px,#3b444d 10px 20px)}.part.sata::before{left:8%;right:8%;top:20px;height:8px;background:#cf3e3e;border-radius:8px}
+
+.part.cpu{background:linear-gradient(#59503c,#2f2a20)}
+.part.cpu::before{inset:8px;border:2px solid #f5e5b3;background:linear-gradient(145deg,#dccb91,#8a7846)}
+.part.cpu::after{inset:3px;border:2px dotted rgba(245,225,162,.55)}
+
+.part.ram{min-height:42px;background:linear-gradient(#255f47,#1a3e30)}
+.part.ram::before{left:5%;right:5%;top:8px;height:17px;background:repeating-linear-gradient(90deg,#111a22 0 11px,#4d5f6c 11px 20px);border:1px solid #aacbb9}
+.part.ram::after{left:8%;right:8%;bottom:6px;height:5px;background:repeating-linear-gradient(90deg,#d7b54b 0 6px,transparent 6px 9px)}
+
+.part.gpu{background:linear-gradient(#424e5a,#262f38)}
+.part.gpu::before{left:6%;right:24%;top:10px;bottom:16px;border:1px solid #9cb4c8;background:linear-gradient(#1f2830,#3b4a57)}
+.part.gpu::after{right:7%;top:11px;width:19%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#a9c1d1,#2a3a48,#a9c1d1);box-shadow:0 0 0 3px #4d5a66}
+
+.part.hdd{background:linear-gradient(#727b86,#3b444f)}
+.part.hdd::before{inset:7px;border-radius:7px;background:linear-gradient(#c3c9d0,#87919b)}
+.part.hdd::after{left:17%;top:16px;width:28px;height:28px;border-radius:50%;border:3px solid #525a63;background:radial-gradient(circle,#9faab4 20%,#d6dde5 21% 35%,#9faab4 36%)}
+
+.part.fan{border-radius:50%;background:linear-gradient(#5f6c79,#2f3944)}
+.part.fan::before{inset:8px;border-radius:50%;background:conic-gradient(#a6bac9 0 18%,#34414d 18% 36%,#a6bac9 36% 54%,#34414d 54% 72%,#a6bac9 72% 90%,#34414d 90%)}
+.part.fan::after{left:45%;top:45%;width:10%;height:10%;border-radius:50%;background:#121a22}
+
+.part.psu{background:linear-gradient(#4a5560,#252d35)}
+.part.psu::before{inset:10px;background:linear-gradient(#3f4852,#202831);border:1px solid #9ca8b4}
+.part.psu::after{right:12px;top:13px;width:22px;height:22px;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 2px,#606b76 2px 4px)}
+
+.part.monitor::before{left:8%;right:8%;top:8%;bottom:24%;background:linear-gradient(145deg,#0f1f30,#2f6790);border:2px solid #9fb6c9}
+.part.monitor::after{left:39%;width:22%;bottom:7%;height:12%;background:#7a8a97}
+.part.keyboard::before{left:8%;right:8%;top:14px;height:24px;background:repeating-linear-gradient(90deg,#e2e9ef 0 5px,#909ba7 5px 8px)}
+.part.mouse::before{left:38%;top:10px;width:26%;height:35px;border-radius:45% 45% 55% 55%;background:linear-gradient(#c1ccd7,#737f8b)}
+.part.sound::before{left:8%;right:8%;top:11px;height:24px;background:linear-gradient(#2f8c61,#20563e);border:1px solid #9ad3b5}
+.part.usb::before{left:10%;right:10%;top:12px;height:18px;background:repeating-linear-gradient(90deg,#d7b45f 0 10px,#38424a 10px 20px)}
+.part.sata::before{left:8%;right:8%;top:20px;height:8px;background:linear-gradient(90deg,#e34e4e,#9f1d1d);border-radius:8px}
+
 .cables{position:absolute;inset:0;z-index:1;pointer-events:none}.cable{fill:none;stroke:#45c7ff;stroke-width:4.5;filter:drop-shadow(0 0 5px #18aee7)}
+
+.part .art{position:absolute;inset:6px 6px 18px 6px;opacity:.95}.part .art svg{width:100%;height:100%}
