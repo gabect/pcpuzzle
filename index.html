@@ -3,43 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>PC Puzzle Workshop</title>
+  <title>PC Technician Bench - Puzzle</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>PC Puzzle Workshop</h1>
+    <h1>🛠️ Banco Técnico: Armado de PC</h1>
     <div class="hud">
-      <span id="progress">0 / 12 piezas instaladas</span>
+      <span id="progress">0 / 12 instaladas</span>
+      <button id="hintBtn">Mostrar guías</button>
       <button id="resetBtn">Reiniciar</button>
     </div>
   </header>
 
-  <main class="workshop">
-    <section class="board" aria-label="Mesa de trabajo">
-      <div class="wood-texture"></div>
+  <main class="layout">
+    <section class="left-panel">
+      <h2>Componentes</h2>
+      <p>Arrastra cada pieza al slot correcto. El cableado se dibuja en tiempo real.</p>
+      <aside id="partsBin" class="parts-bin"></aside>
+    </section>
 
-      <div id="caseArea" class="case" aria-label="Case de PC">
+    <section class="workbench board">
+      <canvas id="grain"></canvas>
+      <svg id="cables" class="cables" viewBox="0 0 1400 800" preserveAspectRatio="none"></svg>
+      <div id="caseArea" class="case">
         <div class="case-inner">
-          <div id="motherboard" class="motherboard"></div>
-          <div id="psuSlot" class="slot psu-slot" data-accept="psu">PSU</div>
-          <div id="hddSlot" class="slot hdd-slot" data-accept="hdd">HDD</div>
-          <div id="fanSlot" class="slot fan-slot" data-accept="fan">FAN</div>
+          <div id="motherboard" class="motherboard">
+            <div class="cpu-socket slot" data-slot="cpu">CPU</div>
+            <div class="ram-slot slot" data-slot="ram">RAM</div>
+            <div class="gpu-slot slot" data-slot="gpu">GPU</div>
+            <div class="sound-slot slot" data-slot="sound">SOUND</div>
+            <div class="usb-slot slot" data-slot="usb">USB</div>
+          </div>
+          <div id="hddSlot" class="slot bay" data-slot="hdd">HDD BAY</div>
+          <div id="fanSlot" class="slot bay circle" data-slot="fan">FAN</div>
+          <div id="psuSlot" class="slot bay" data-slot="psu">PSU</div>
+          <div id="ioArea" class="io-zone">I/O externo: monitor, teclado, mouse, SATA</div>
         </div>
       </div>
-
-      <svg id="cables" class="cables" viewBox="0 0 1400 760" preserveAspectRatio="none"></svg>
-
-      <aside id="partsBin" class="parts-bin" aria-label="Piezas sueltas"></aside>
     </section>
   </main>
 
-  <template id="partTemplate">
-    <div class="part" draggable="true">
-      <div class="label"></div>
-    </div>
-  </template>
-
+  <template id="partTemplate"><div class="part" draggable="true"><span class="label"></span></div></template>
   <script src="app.js"></script>
 </body>
 </html>

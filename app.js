@@ -1,112 +1,59 @@
 const parts = [
-  { id: 'cpu', label: 'CPU', slot: 'motherboard' },
-  { id: 'ram', label: 'RAM', slot: 'motherboard' },
-  { id: 'gpu', label: 'GPU', slot: 'motherboard' },
-  { id: 'sound', label: 'Sound Card', slot: 'motherboard' },
-  { id: 'usb', label: 'USB Ports', slot: 'motherboard' },
-  { id: 'hdd', label: 'HDD', slot: 'hddSlot' },
-  { id: 'fan', label: 'Fan', slot: 'fanSlot' },
-  { id: 'psu', label: 'Power Supply', slot: 'psuSlot' },
-  { id: 'keyboard', label: 'Keyboard', slot: 'motherboard' },
-  { id: 'mouse', label: 'Mouse', slot: 'motherboard' },
-  { id: 'monitor', label: 'Monitor', slot: 'motherboard' },
-  { id: 'sata', label: 'SATA Cable', slot: 'motherboard' }
+  ['cpu','CPU','cpu'],['ram','RAM','ram'],['gpu','GPU','gpu'],['sound','Sound Card','sound'],['usb','USB Hub','usb'],
+  ['hdd','HDD','hdd'],['fan','Fan Cooler','fan'],['psu','Power Supply','psu'],['keyboard','Keyboard','ioArea'],['mouse','Mouse','ioArea'],['monitor','Monitor','ioArea'],['sata','SATA Cable','ioArea']
 ];
 
 const bin = document.getElementById('partsBin');
-const template = document.getElementById('partTemplate');
+const tpl = document.getElementById('partTemplate');
 const progress = document.getElementById('progress');
-const resetBtn = document.getElementById('resetBtn');
-const board = document.querySelector('.board');
-const cablesSvg = document.getElementById('cables');
-const motherboard = document.getElementById('motherboard');
-
-const slots = {
-  motherboard,
-  hddSlot: document.getElementById('hddSlot'),
-  fanSlot: document.getElementById('fanSlot'),
-  psuSlot: document.getElementById('psuSlot')
+const cables = document.getElementById('cables');
+const hintBtn = document.getElementById('hintBtn');
+const targets = {
+  cpu: document.querySelector('.cpu-socket'), ram: document.querySelector('.ram-slot'), gpu: document.querySelector('.gpu-slot'),
+  sound: document.querySelector('.sound-slot'), usb: document.querySelector('.usb-slot'), hdd: document.getElementById('hddSlot'),
+  fan: document.getElementById('fanSlot'), psu: document.getElementById('psuSlot'), ioArea: document.getElementById('ioArea')
 };
+let done = 0;
 
-let installed = 0;
-const liveCables = [];
+parts.forEach(([id,label,slot])=>{
+  const n = tpl.content.firstElementChild.cloneNode(true);
+  n.classList.add(id); n.dataset.id=id; n.dataset.slot=slot; n.querySelector('.label').textContent=label;
+  n.addEventListener('dragstart',e=>{ if(n.classList.contains('installed')) return e.preventDefault(); e.dataTransfer.setData('text',id); });
+  bin.appendChild(n);
+});
 
-function makePart(p) {
-  const node = template.content.firstElementChild.cloneNode(true);
-  node.classList.add(p.id);
-  node.dataset.id = p.id;
-  node.dataset.slot = p.slot;
-  node.querySelector('.label').textContent = p.label;
-
-  node.addEventListener('dragstart', (ev) => {
-    if (node.classList.contains('installed')) return ev.preventDefault();
-    node.classList.add('dragging');
-    ev.dataTransfer.setData('text/plain', p.id);
-  });
-
-  node.addEventListener('dragend', () => node.classList.remove('dragging'));
-  return node;
-}
-
-parts.forEach((p) => bin.appendChild(makePart(p)));
-
-Object.values(slots).forEach((slotNode) => {
-  slotNode.addEventListener('dragover', (ev) => {
-    ev.preventDefault();
-    slotNode.classList.add('drop-ok');
-  });
-
-  slotNode.addEventListener('dragleave', () => slotNode.classList.remove('drop-ok'));
-
-  slotNode.addEventListener('drop', (ev) => {
-    ev.preventDefault();
-    slotNode.classList.remove('drop-ok');
-
-    const id = ev.dataTransfer.getData('text/plain');
-    const part = document.querySelector(`.part[data-id="${id}"]`);
-    if (!part || part.classList.contains('installed')) return;
-
-    const expected = part.dataset.slot;
-    if (slotNode.id !== expected && expected !== 'motherboard') return;
-
+Object.entries(targets).forEach(([key,node])=>{
+  node.addEventListener('dragover',e=>e.preventDefault());
+  node.addEventListener('drop',e=>{
+    e.preventDefault();
+    const id=e.dataTransfer.getData('text');
+    const part=document.querySelector(`.part[data-id="${id}"]`);
+    if(!part || part.classList.contains('installed')) return;
+    if(part.dataset.slot!==key) return;
     part.classList.add('installed');
-    part.style.position = 'absolute';
-    part.style.left = `${10 + Math.random() * 60}%`;
-    part.style.top = `${10 + Math.random() * 70}%`;
-    part.style.width = '100px';
-    part.style.zIndex = 8;
-    slotNode.appendChild(part);
-
-    installed += 1;
-    drawCable(slotNode);
-    updateProgress();
+    part.style.position='absolute'; part.style.width=(id==='ram'?'120px':'95px');
+    part.style.left=`${10+Math.random()*70}%`; part.style.top=`${8+Math.random()*70}%`;
+    node.appendChild(part); drawCable(node); done++; update();
   });
 });
 
-function drawCable(target) {
-  const binRect = bin.getBoundingClientRect();
-  const targetRect = target.getBoundingClientRect();
-  const boardRect = board.getBoundingClientRect();
-
-  const x1 = binRect.right - boardRect.left;
-  const y1 = binRect.top + 40 + Math.random() * (binRect.height - 80) - boardRect.top;
-  const x2 = targetRect.left + targetRect.width / 2 - boardRect.left;
-  const y2 = targetRect.top + targetRect.height / 2 - boardRect.top;
-  const cx = (x1 + x2) / 2 + 40;
-
-  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute('d', `M ${x1} ${y1} Q ${cx} ${y1 - 30} ${x2} ${y2}`);
-  path.setAttribute('class', 'cable live');
-  cablesSvg.appendChild(path);
-  liveCables.push(path);
+function drawCable(node){
+  const b=bin.getBoundingClientRect(), t=node.getBoundingClientRect(), p=document.querySelector('.board').getBoundingClientRect();
+  const x1=b.right-p.left, y1=b.top+b.height/2-p.top, x2=t.left+t.width/2-p.left, y2=t.top+t.height/2-p.top;
+  const c=document.createElementNS('http://www.w3.org/2000/svg','path');
+  c.setAttribute('class','cable');
+  c.setAttribute('d',`M ${x1} ${y1} C ${(x1+x2)/2+80} ${y1-40}, ${(x1+x2)/2-50} ${y2+40}, ${x2} ${y2}`);
+  cables.appendChild(c);
 }
+function update(){progress.textContent=`${done} / ${parts.length} instaladas`; if(done===parts.length) progress.textContent='✅ Ensamble finalizado';}
 
-function updateProgress() {
-  progress.textContent = `${installed} / ${parts.length} piezas instaladas`;
-  if (installed === parts.length) {
-    progress.textContent = '¡PC completada! Diagnóstico: OK';
-  }
-}
+hintBtn.addEventListener('click',()=>document.querySelectorAll('.slot').forEach(s=>s.style.background='rgba(48,126,182,.35)'));
+document.getElementById('resetBtn').addEventListener('click',()=>location.reload());
 
-resetBtn.addEventListener('click', () => location.reload());
-updateProgress();
+(function drawGrain(){
+  const c=document.getElementById('grain'),ctx=c.getContext('2d');
+  c.width=c.clientWidth; c.height=c.clientHeight;
+  ctx.fillStyle='#68472d'; ctx.fillRect(0,0,c.width,c.height);
+  for(let y=0;y<c.height;y+=3){ctx.fillStyle=`rgba(${80+Math.random()*40},${50+Math.random()*30},${30+Math.random()*20},0.22)`;ctx.fillRect(0,y,c.width,2)}
+})();
+update();

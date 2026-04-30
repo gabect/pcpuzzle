@@ -1,123 +1,26 @@
-:root {
-  --bg: #13161b;
-  --metal: #2f363d;
-  --accent: #32d2ff;
-  --good: #2eca87;
-  --warn: #ffcc4d;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Inter, Segoe UI, Roboto, sans-serif;
-  color: #e8edf2;
-  background: radial-gradient(circle at top, #212833, #0d1014 70%);
-}
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, #202833, #151a21);
-  border-bottom: 1px solid #2f3742;
-}
-.hud { display: flex; gap: 0.75rem; align-items: center; }
-button {
-  border: 1px solid #4b5c71;
-  background: #243041;
-  color: #eaf2ff;
-  border-radius: 10px;
-  padding: 0.45rem 0.7rem;
-  cursor: pointer;
-}
-.workshop { padding: 1rem; }
-.board {
-  position: relative;
-  height: calc(100vh - 92px);
-  overflow: hidden;
-  border-radius: 16px;
-  border: 2px solid #39414a;
-  box-shadow: inset 0 0 0 2px #0f141b, 0 20px 45px rgba(0,0,0,.35);
-}
-.wood-texture {
-  position: absolute; inset: 0;
-  background:
-    repeating-linear-gradient(8deg, rgba(84,57,37,.45) 0 8px, rgba(66,45,30,.55) 8px 16px),
-    linear-gradient(45deg, #6f4a30, #533823 40%, #5e4028 80%);
-  filter: saturate(.9);
-}
-.case {
-  position: absolute;
-  left: 33%; top: 7%;
-  width: 48%; height: 84%;
-  background: linear-gradient(160deg, #262d34, #161c22);
-  border: 4px solid #3d454d;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.45), inset 0 0 20px rgba(0,0,0,.55);
-}
-.case-inner { position: absolute; inset: 14px; border: 2px dashed #4b5562; border-radius: 14px; }
-.motherboard {
-  position: absolute;
-  left: 8%; top: 8%;
-  width: 58%; height: 80%;
-  background:
-    radial-gradient(circle at 10% 10%, rgba(255,255,255,.06), transparent 38%),
-    repeating-linear-gradient(90deg, rgba(102,164,138,.18) 0 2px, transparent 2px 14px),
-    linear-gradient(135deg, #1d5f46, #163a2d);
-  border: 3px solid #7b9f8d;
-  border-radius: 8px;
-}
-.slot {
-  position: absolute;
-  border: 2px dashed #9fb4bd;
-  color: #c8d9df;
-  font-size: .78rem;
-  letter-spacing: .08em;
-  display: grid;
-  place-items: center;
-  background: rgba(6, 11, 14, .4);
-}
-.psu-slot { right: 6%; bottom: 8%; width: 30%; height: 20%; }
-.hdd-slot { right: 6%; top: 10%; width: 30%; height: 20%; }
-.fan-slot { right: 8%; top: 36%; width: 26%; height: 26%; border-radius: 50%; }
-.parts-bin {
-  position: absolute;
-  left: 2%; top: 8%; width: 28%; height: 84%;
-  padding: .6rem;
-  border: 2px dashed #d2c6b8;
-  border-radius: 14px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
-  grid-auto-rows: minmax(68px, auto);
-  gap: .55rem;
-  z-index: 4;
-}
-.part {
-  position: relative;
-  user-select: none;
-  cursor: grab;
-  border-radius: 10px;
-  border: 1px solid #82909d;
-  box-shadow: 0 10px 18px rgba(0,0,0,.25), inset 0 0 10px rgba(255,255,255,.06);
-  background: linear-gradient(130deg, #4d5661, #242a31);
-  min-height: 64px;
-}
-.part.dragging { opacity: .55; transform: scale(1.02); }
-.part.installed { outline: 3px solid var(--good); cursor: default; }
-.part .label {
-  position: absolute; bottom: 4px; left: 6px;
-  font-size: .66rem; font-weight: 600; letter-spacing: .05em;
-  color: #f0f6ff;
-  text-shadow: 0 1px 3px #000;
-}
-.part::before, .part::after { content: ""; position: absolute; }
-.part.cpu::before { inset: 10px; border: 2px solid #f0d47b; background: linear-gradient(135deg,#74653f,#b89f5f); }
-.part.ram { min-height: 38px; }
-.part.ram::before { left: 7%; right: 7%; top: 10px; height: 14px; background: #1e593f; border: 1px solid #9fcaac; }
-.part.fan { border-radius: 50%; }
-.part.fan::before { inset: 8px; border-radius: 50%; background: conic-gradient(#94a7b5, #28343c, #94a7b5); }
-.part.monitor::before { left: 8%; right: 8%; top: 8%; bottom: 22%; background: linear-gradient(140deg, #0d1520, #224157); border: 2px solid #90a6b8; }
-.part.monitor::after { width: 26%; height: 11%; left: 37%; bottom: 7%; background: #6f7e89; }
-.cables { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-.cable { fill: none; stroke: #1f2329; stroke-width: 5; stroke-linecap: round; }
-.cable.live { stroke: var(--accent); filter: drop-shadow(0 0 5px #1eaad8); }
-.drop-ok { outline: 3px dashed var(--warn); }
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,sans-serif;color:#eaf3ff;background:#0b1017}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:linear-gradient(90deg,#182534,#243a52);border-bottom:2px solid #355372}
+.hud{display:flex;gap:.5rem;align-items:center}button{padding:.45rem .7rem;border-radius:8px;border:1px solid #6888ad;background:#1f344a;color:#eff7ff}
+.layout{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 62px)}
+.left-panel{padding:1rem;background:linear-gradient(#101a26,#0f141d);border-right:2px solid #2f455f}
+.left-panel h2{margin:.2rem 0}.left-panel p{font-size:.9rem;color:#bfd0e6}
+.parts-bin{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;max-height:75vh;overflow:auto;padding-right:.3rem}
+.board{position:relative;overflow:hidden}
+#grain{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.case{position:absolute;left:15%;top:6%;width:72%;height:88%;background:linear-gradient(145deg,#313b45,#161d25);border:5px solid #56626e;border-radius:20px;z-index:2;box-shadow:0 20px 45px rgba(0,0,0,.45)}
+.case-inner{position:absolute;inset:15px;border:2px dashed #647586;border-radius:14px}
+.motherboard{position:absolute;left:4%;top:7%;width:58%;height:84%;border-radius:10px;border:3px solid #88ae9a;background:repeating-linear-gradient(90deg,rgba(118,202,169,.2)0 2px,transparent 2px 15px),linear-gradient(#20694f,#184535)}
+.slot{position:absolute;border:2px dashed #c4d4e7;background:rgba(11,19,28,.55);font-size:.7rem;display:grid;place-items:center;color:#deecf8;padding:3px;text-align:center}
+.cpu-socket{left:9%;top:10%;width:26%;height:22%}.ram-slot{left:43%;top:12%;width:48%;height:12%}.gpu-slot{left:11%;top:41%;width:76%;height:16%}.sound-slot{left:12%;top:64%;width:36%;height:12%}.usb-slot{left:54%;top:64%;width:33%;height:12%}
+.bay{right:4%;width:31%;height:20%}#hddSlot{top:10%}#fanSlot{top:37%;border-radius:50%}#psuSlot{bottom:8%}
+.io-zone{position:absolute;left:4%;bottom:3%;width:58%;height:8%;border:1px solid #8ab0ca;background:rgba(8,13,19,.55);font-size:.72rem;padding:.25rem .45rem;color:#cbe2f7}
+.part{position:relative;min-height:68px;background:linear-gradient(135deg,#5c6875,#2d3641);border:1px solid #95a4b5;border-radius:10px;cursor:grab;box-shadow:0 10px 16px rgba(0,0,0,.3);overflow:hidden}
+.part .label{position:absolute;left:6px;bottom:4px;font-size:.63rem;font-weight:700;text-shadow:0 1px 2px #000}
+.part::before,.part::after{content:"";position:absolute}.part.installed{outline:3px solid #2ad890}
+.part.cpu::before{inset:8px;background:linear-gradient(#decf8a,#8f7d47);border:2px solid #fff1b8}.part.ram{min-height:42px}.part.ram::before{left:6%;right:6%;top:10px;height:16px;background:repeating-linear-gradient(90deg,#14202a 0 10px,#44555f 10px 18px)}
+.part.gpu::before{left:8%;right:26%;top:12px;bottom:16px;background:#33414d;border:1px solid #99afc3}.part.gpu::after{right:8%;top:14px;width:18%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#a8bfce,#293847,#a8bfce)}
+.part.hdd::before{inset:8px;background:linear-gradient(#c4cbd2,#76808a)}.part.fan{border-radius:50%}.part.fan::before{inset:8px;border-radius:50%;background:conic-gradient(#a6bac9,#31404d,#a6bac9,#31404d,#a6bac9)}
+.part.psu::before{inset:10px;background:#343d46}.part.monitor::before{left:8%;right:8%;top:8%;bottom:24%;background:linear-gradient(#122233,#245170);border:2px solid #9bb3c6}
+.part.keyboard::before{left:8%;right:8%;top:14px;height:24px;background:repeating-linear-gradient(90deg,#e0e6ed 0 5px,#8f99a4 5px 8px)}.part.mouse::before{left:38%;top:10px;width:26%;height:34px;border-radius:45%;background:linear-gradient(#b7c4d0,#6f7c89)}
+.part.sound::before{left:8%;right:8%;top:11px;height:24px;background:#2d8259}.part.usb::before{left:10%;right:10%;top:12px;height:18px;background:repeating-linear-gradient(90deg,#d8b969 0 10px,#3b444d 10px 20px)}.part.sata::before{left:8%;right:8%;top:20px;height:8px;background:#cf3e3e;border-radius:8px}
+.cables{position:absolute;inset:0;z-index:1;pointer-events:none}.cable{fill:none;stroke:#45c7ff;stroke-width:4.5;filter:drop-shadow(0 0 5px #18aee7)}
