@@ -1,0 +1,123 @@
+:root {
+  --bg: #13161b;
+  --metal: #2f363d;
+  --accent: #32d2ff;
+  --good: #2eca87;
+  --warn: #ffcc4d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, sans-serif;
+  color: #e8edf2;
+  background: radial-gradient(circle at top, #212833, #0d1014 70%);
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(180deg, #202833, #151a21);
+  border-bottom: 1px solid #2f3742;
+}
+.hud { display: flex; gap: 0.75rem; align-items: center; }
+button {
+  border: 1px solid #4b5c71;
+  background: #243041;
+  color: #eaf2ff;
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+.workshop { padding: 1rem; }
+.board {
+  position: relative;
+  height: calc(100vh - 92px);
+  overflow: hidden;
+  border-radius: 16px;
+  border: 2px solid #39414a;
+  box-shadow: inset 0 0 0 2px #0f141b, 0 20px 45px rgba(0,0,0,.35);
+}
+.wood-texture {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(8deg, rgba(84,57,37,.45) 0 8px, rgba(66,45,30,.55) 8px 16px),
+    linear-gradient(45deg, #6f4a30, #533823 40%, #5e4028 80%);
+  filter: saturate(.9);
+}
+.case {
+  position: absolute;
+  left: 33%; top: 7%;
+  width: 48%; height: 84%;
+  background: linear-gradient(160deg, #262d34, #161c22);
+  border: 4px solid #3d454d;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.45), inset 0 0 20px rgba(0,0,0,.55);
+}
+.case-inner { position: absolute; inset: 14px; border: 2px dashed #4b5562; border-radius: 14px; }
+.motherboard {
+  position: absolute;
+  left: 8%; top: 8%;
+  width: 58%; height: 80%;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,.06), transparent 38%),
+    repeating-linear-gradient(90deg, rgba(102,164,138,.18) 0 2px, transparent 2px 14px),
+    linear-gradient(135deg, #1d5f46, #163a2d);
+  border: 3px solid #7b9f8d;
+  border-radius: 8px;
+}
+.slot {
+  position: absolute;
+  border: 2px dashed #9fb4bd;
+  color: #c8d9df;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 11, 14, .4);
+}
+.psu-slot { right: 6%; bottom: 8%; width: 30%; height: 20%; }
+.hdd-slot { right: 6%; top: 10%; width: 30%; height: 20%; }
+.fan-slot { right: 8%; top: 36%; width: 26%; height: 26%; border-radius: 50%; }
+.parts-bin {
+  position: absolute;
+  left: 2%; top: 8%; width: 28%; height: 84%;
+  padding: .6rem;
+  border: 2px dashed #d2c6b8;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-auto-rows: minmax(68px, auto);
+  gap: .55rem;
+  z-index: 4;
+}
+.part {
+  position: relative;
+  user-select: none;
+  cursor: grab;
+  border-radius: 10px;
+  border: 1px solid #82909d;
+  box-shadow: 0 10px 18px rgba(0,0,0,.25), inset 0 0 10px rgba(255,255,255,.06);
+  background: linear-gradient(130deg, #4d5661, #242a31);
+  min-height: 64px;
+}
+.part.dragging { opacity: .55; transform: scale(1.02); }
+.part.installed { outline: 3px solid var(--good); cursor: default; }
+.part .label {
+  position: absolute; bottom: 4px; left: 6px;
+  font-size: .66rem; font-weight: 600; letter-spacing: .05em;
+  color: #f0f6ff;
+  text-shadow: 0 1px 3px #000;
+}
+.part::before, .part::after { content: ""; position: absolute; }
+.part.cpu::before { inset: 10px; border: 2px solid #f0d47b; background: linear-gradient(135deg,#74653f,#b89f5f); }
+.part.ram { min-height: 38px; }
+.part.ram::before { left: 7%; right: 7%; top: 10px; height: 14px; background: #1e593f; border: 1px solid #9fcaac; }
+.part.fan { border-radius: 50%; }
+.part.fan::before { inset: 8px; border-radius: 50%; background: conic-gradient(#94a7b5, #28343c, #94a7b5); }
+.part.monitor::before { left: 8%; right: 8%; top: 8%; bottom: 22%; background: linear-gradient(140deg, #0d1520, #224157); border: 2px solid #90a6b8; }
+.part.monitor::after { width: 26%; height: 11%; left: 37%; bottom: 7%; background: #6f7e89; }
+.cables { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.cable { fill: none; stroke: #1f2329; stroke-width: 5; stroke-linecap: round; }
+.cable.live { stroke: var(--accent); filter: drop-shadow(0 0 5px #1eaad8); }
+.drop-ok { outline: 3px dashed var(--warn); }
